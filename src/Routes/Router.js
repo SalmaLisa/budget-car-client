@@ -1,8 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
+import Dashboard from "../layouts/Dashboard";
 import Main from "../layouts/Main";
-import Home from "../pages/Home";
-import Login from "../pages/Login";
-import Signup from "../pages/Signup";
+import Home from "../pages/generalPages/Home";
+import Login from "../pages/generalPages/Login";
+import Signup from "../pages/generalPages/Signup";
+import AddProduct from "../pages/sellerOnlyPages.js/AddProduct";
+
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +28,20 @@ export const router = createBrowserRouter([
         path: '/signup',
         element:<Signup></Signup>,
       },
+      {
+        path: '/signup',
+        element:<Signup></Signup>,
+      },
+    ]
+  },
+  {
+    path: '/dashboard',
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: '/dashboard/addProduct',
+        element:<AddProduct></AddProduct>
+      }
     ]
   }
 ])

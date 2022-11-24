@@ -14,7 +14,7 @@ import { Autoplay, Pagination, Navigation } from "swiper";
 
 const HomeBanner = () => {
   return (
-    <>
+    <section>
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
@@ -62,7 +62,7 @@ const HomeBanner = () => {
           </p>
         </div>
       </Swiper>
-    </>
+    </section>
   );
 };
 

@@ -2,10 +2,10 @@ import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../contexts/AuthProvider";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Signup = () => {
-  const [accountStatus, setAccountStatus]=useState("user")
+  const [accountStatus, setAccountStatus]=useState("buyer")
   const {
     register,
     handleSubmit,
@@ -112,8 +112,8 @@ const Signup = () => {
         <div className="space-y-1 text-sm">
           <p>What kind of account do you want ?</p>
           <div>
-          <input onClick={()=>setAccountStatus('user')} type="radio" id="user" name="accountStatus" value="User" /> {" "}
-          <label htmlFor="user">User</label>
+          <input onClick={()=>setAccountStatus('buyer')} type="radio" id="buyer" name="accountStatus" value="Buyer" /> {" "}
+          <label htmlFor="buyer">Buyer</label>
           </div>
          
           <div>

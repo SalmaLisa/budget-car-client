@@ -1,21 +1,38 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 
 
 const Login = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm()
-  const {login}=useContext(AuthContext)
+  const { register, handleSubmit,reset, formState: { errors } } = useForm()
+  const {login,googleSignIn}=useContext(AuthContext)
   const onSubmit = data => {
     login(data.email, data.password)
     .then(result => {
-    console.log(result.user)
+      console.log(result.user)
+      toast.success("successfully logged in")
+      reset()
     })
     .catch(err => {
-    console.log(err)
+      console.log(err)
+      toast.error(err.message)
   })
   };
+
+  //google login
+  const handleGoogleLogin = () => {
+    googleSignIn()
+      .then(result => {
+        console.log(result.user)
+        toast.success("successfully logged in")
+      })
+      .catch(err => {
+        console.log(err)
+        toast.error(err.message)
+    })
+  }
   return (
     <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-yellow-50 text-gray-800 my-20 mx-auto">
       <h1 className="text-2xl font-bold text-center mb-5">Login</h1>
@@ -65,6 +82,7 @@ const Login = () => {
       </div>
       <div className="flex justify-center space-x-4">
         <button
+          onClick={handleGoogleLogin}
           aria-label="Login with Google"
           type="button"
           className="flex items-center justify-center w-full bg-yellow-100 p-2 space-x-4 text-xl rounded-sm border-2 border-l-yellow-400 border-r-zinc-700 border-t-zinc-700 border-b-yellow-400 text-zinc-700"

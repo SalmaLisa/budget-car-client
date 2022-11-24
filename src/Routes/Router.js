@@ -5,6 +5,7 @@ import Home from "../pages/generalPages/Home";
 import Login from "../pages/generalPages/Login";
 import Signup from "../pages/generalPages/Signup";
 import AddProduct from "../pages/sellerOnlyPages.js/AddProduct";
+import MyProducts from "../pages/sellerOnlyPages.js/MyProducts";
 
 
 export const router = createBrowserRouter([
@@ -41,7 +42,11 @@ export const router = createBrowserRouter([
       {
         path: '/dashboard/addProduct',
         element:<AddProduct></AddProduct>
-      }
+      },
+      {
+        path: '/dashboard/myProducts',
+        element:<MyProducts></MyProducts>
+      },
     ]
   }
 ])

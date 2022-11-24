@@ -1,48 +1,74 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../contexts/AuthProvider";
 
-
-
 const Signup = () => {
-  const { register, handleSubmit,reset, formState: { errors } } = useForm();
-  const {createUser,googleSignIn}=useContext(AuthContext)
-  const onSubmit = data => {
+  const [accountStatus, setAccountStatus]=useState("user")
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const { createUser, googleSignIn,updateUserName } = useContext(AuthContext);
+  const onSubmit = (data) => {
+    const newlyCreatedAccount = {
+      username: data.username,
+      userEmail: data.email,
+      accountStatus : accountStatus
+    }
+
     createUser(data.email, data.password)
-      .then(result => {
-        console.log(result.user)
-        toast.success("user created successfully")
-        reset()
+      .then((result) => {
+        console.log(result.user);
+        toast.success("user created successfully");
+        updateUserName(data.username)
+          .then(result => {
+            fetch('http://localhost:5000/allAccounts', {
+              method: "POST",
+              headers: {
+                "content-type":"application/json"
+              },
+              body:JSON.stringify(newlyCreatedAccount)
+            })
+              .then(res => res.json())
+            .then(data=>console.log(data))
+          })
+        .catch(err=>console.log(err))
+        reset();
       })
-      .catch(err => {
-        console.log(err)
-        toast.error(err.message)
-    })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      });
   };
 
-   //google login
-   const handleGoogleLogin = () => {
+  //google login
+  const handleGoogleLogin = () => {
     googleSignIn()
-      .then(result => {
-        console.log(result.user)
-        toast.success("successfully logged in")
+      .then((result) => {
+        console.log(result.user);
+        toast.success("successfully logged in");
       })
-      .catch(err => {
-        console.log(err)
-        toast.error(err.message)
-    })
-  }
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      });
+  };
   return (
     <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-yellow-50 text-gray-800 my-20 mx-auto">
       <h1 className="text-2xl font-bold text-center mb-5">Please Sign Up</h1>
       <form
-       onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
         className="space-y-6 ng-untouched ng-pristine ng-valid"
       >
         <div className="space-y-1 text-sm">
-          <label htmlFor="username" className="block text-gray-600 font-semibold ">
+          <label
+            htmlFor="username"
+            className="block text-gray-600 font-semibold "
+          >
             Username
           </label>
           <input
@@ -68,21 +94,39 @@ const Signup = () => {
           {/* {errors.email && <span className="text-red-600">{errors.email}</span>} */}
         </div>
         <div className="space-y-1 text-sm">
-          <label htmlFor="password" className="block text-gray-600 font-semibold ">
+          <label
+            htmlFor="password"
+            className="block text-gray-600 font-semibold "
+          >
             Password
           </label>
           <input
             type="password"
-            {...register("password", { required : "* required field" })}
+            {...register("password", { required: "* required field" })}
             id="password"
             placeholder="Password"
             className="w-full px-4 py-3 rounded-sm border-b border-b-yellow-400 focus:outline-none bg-yellow-50"
           />
           {/* {errors.password && <span className="text-red-600">{errors.password}</span>} */}
         </div>
-        <input type='submit'  value="Sign Up" className="block w-full bg-yellow-100 p-2 text-center rounded-sm border-2 text-xl border-l-yellow-400 border-r-zinc-700 border-t-zinc-700 border-b-yellow-400 text-zinc-700 "/>
+        <div className="space-y-1 text-sm">
+          <p>What kind of account do you want ?</p>
+          <div>
+          <input onClick={()=>setAccountStatus('user')} type="radio" id="user" name="accountStatus" value="User" /> {" "}
+          <label htmlFor="user">User</label>
+          </div>
          
-        
+          <div>
+          <input onClick={()=>setAccountStatus('seller')} type="radio" id="seller" name="accountStatus" value="Seller" /> {" "}
+          <label htmlFor="seller">Seller</label>
+          </div>
+         
+        </div>
+        <input
+          type="submit"
+          value="Sign Up"
+          className="block w-full bg-yellow-100 p-2 text-center rounded-sm border-2 text-xl border-l-yellow-400 border-r-zinc-700 border-t-zinc-700 border-b-yellow-400 text-zinc-700 "
+        />
       </form>
       <div className="flex items-center pt-4 space-x-1">
         <div className="flex-1 h-px sm:w-16 bg-gray-300"></div>
@@ -109,7 +153,7 @@ const Signup = () => {
       <p className="text-sm text-center sm:px-6 text-gray-600">
         Already have an account?
         <Link
-          to='/login'
+          to="/login"
           className=" text-gray-800 ml-3 font-semibold hover:text-yellow-600"
         >
           Login

@@ -79,12 +79,12 @@ const Nav = () => {
           ) : (
             <li>
               <Link
-                to="/signup"
+                to="/login"
                 className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-zinc-700 border border-yellow-400 transition duration-200 rounded shadow-md bg-yellow-100 "
                 aria-label="Sign up"
                 title="Sign up"
               >
-                Sign up
+                Sign in
               </Link>
             </li>
           )}
@@ -199,12 +199,12 @@ const Nav = () => {
                     ) : (
                       <li>
                         <Link
-                          to="/signup"
+                          to="/login"
                           className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-zinc-700 transition duration-200 rounded shadow-md bg-yellow-100 border border-yellow-400 "
                           aria-label="Sign up"
                           title="Sign up"
                         >
-                          Sign up
+                          Sign in
                         </Link>
                       </li>
                     )}

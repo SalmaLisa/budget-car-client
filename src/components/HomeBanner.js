@@ -6,9 +6,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-import bg1 from "../assets/banner1.png";
-import bg2 from "../assets/banner2.png";
-import bg3 from "../assets/banner3.png";
+import bg1 from "../assets/banner/banner1.png";
+import bg2 from "../assets/banner/banner2.png";
+import bg3 from "../assets/banner/banner3.png";
 
 import { Autoplay, Pagination, Navigation } from "swiper";
 

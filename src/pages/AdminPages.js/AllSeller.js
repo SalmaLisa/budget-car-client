@@ -48,7 +48,7 @@ const AllSeller = () => {
         if (res.data.acknowledged) {
           Swal.fire({
             icon: "success",
-            text: "Seller successfully verified!",
+            text: "Seller is successfully verified!",
           });
           refetch();
         }

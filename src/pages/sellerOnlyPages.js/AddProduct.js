@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/AuthProvider";
 import Loader from "../../shared/Loader";
 
@@ -50,7 +51,24 @@ const AddProduct = () => {
           phone,
           postTime:time
         }
-        
+        fetch('http://localhost:5000/allCar', {
+          method: "POST",
+          headers: {
+            "content-type":"application/json"
+          },
+          body:JSON.stringify(addProductInfo)
+        })
+          .then(res => res.json())
+          .then(data => {
+            if (data.acknowledged) {
+              Swal.fire({
+                icon: "success",
+                text: "product is successfully added",
+              });
+              form.reset()
+            }
+            console.log(data)
+          })
       })
     
   };
@@ -194,7 +212,7 @@ const AddProduct = () => {
          
             type="submit"
             value="Add Product"
-            className="bg-yellow-100 border-yellow-400 border my-6 px-5 py-3"
+            className="bg-yellow-100 border-yellow-400 border my-6 px-5 py-3 cursor-pointer"
           />
         </fieldset>
       </form>

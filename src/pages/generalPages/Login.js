@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -14,6 +15,12 @@ const Login = () => {
       console.log(result.user)
       toast.success("successfully logged in")
       reset()
+      axios.get('http://localhost:5000/jwt')
+        .then(res => {
+          const token = res.data.token
+          localStorage.setItem("accessToken",token)
+        })
+      .catch(err=>console.log(err))
     })
     .catch(err => {
       console.log(err)
@@ -27,6 +34,12 @@ const Login = () => {
       .then(result => {
         console.log(result.user)
         toast.success("successfully logged in")
+        axios.get('http://localhost:5000/jwt')
+        .then(res => {
+          const token = res.data.token
+          localStorage.setItem("accessToken",token)
+        })
+      .catch(err=>console.log(err))
       })
       .catch(err => {
         console.log(err)

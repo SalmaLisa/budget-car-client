@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -5,39 +6,50 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const Signup = () => {
-  const [accountStatus, setAccountStatus]=useState("buyer")
+  const [accountStatus, setAccountStatus] = useState("buyer");
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const { createUser, googleSignIn,updateUserName } = useContext(AuthContext);
+  const { createUser, googleSignIn, updateUserName } = useContext(AuthContext);
   const onSubmit = (data) => {
-    const newlyCreatedAccount = {
-      username: data.username,
-      userEmail: data.email,
-      accountStatus : accountStatus
-    }
-
     createUser(data.email, data.password)
       .then((result) => {
+        const newlyCreatedAccount = {
+          username: data.username,
+          userEmail: data.email,
+          phone: data.phone,
+          location: data.location,
+          accountStatus: accountStatus,
+        };
         console.log(result.user);
         toast.success("user created successfully");
+
+        //access token =====================
+        axios.get('http://localhost:5000/jwt')
+        .then(res => {
+          const token = res.data.token
+          localStorage.setItem("accessToken",token)
+        })
+          .catch(err => console.log(err))
+        //==============================
         updateUserName(data.username)
-          .then(result => {
-            fetch('http://localhost:5000/allAccounts', {
+          .then((result) => {
+            fetch("http://localhost:5000/allAccounts", {
               method: "POST",
               headers: {
-                "content-type":"application/json"
+                "content-type": "application/json",
               },
-              body:JSON.stringify(newlyCreatedAccount)
+              body: JSON.stringify(newlyCreatedAccount),
             })
-              .then(res => res.json())
-            .then(data=>console.log(data))
+              .then((res) => res.json())
+              .then((data) => console.log(data));
           })
-        .catch(err=>console.log(err))
+          .catch((err) => console.log(err));
         reset();
+        setAccountStatus("buyer");
       })
       .catch((err) => {
         console.log(err);
@@ -49,8 +61,32 @@ const Signup = () => {
   const handleGoogleLogin = () => {
     googleSignIn()
       .then((result) => {
-        console.log(result.user);
+        const user = result.user;
         toast.success("successfully logged in");
+        const newlyCreatedAccount = {
+          username: user.displayName,
+          userEmail: user.email,
+          accountStatus: accountStatus,
+        };
+        
+         //access token =====================
+         axios.get('http://localhost:5000/jwt')
+         .then(res => {
+           const token = res.data.token
+           localStorage.setItem("accessToken",token)
+         })
+           .catch(err => console.log(err))
+         //==============================
+        
+        fetch("http://localhost:5000/allAccounts", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(newlyCreatedAccount),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data));
       })
       .catch((err) => {
         console.log(err);
@@ -110,18 +146,57 @@ const Signup = () => {
           {/* {errors.password && <span className="text-red-600">{errors.password}</span>} */}
         </div>
         <div className="space-y-1 text-sm">
+          <label htmlFor="phone" className="block text-gray-600 font-semibold ">
+            Phone Number
+          </label>
+          <input
+            type="text"
+            {...register("phone", { required: "* required field" })}
+            id="phone"
+            placeholder="Phone Number"
+            className="w-full px-4 py-3 rounded-sm border-b border-b-yellow-400 focus:outline-none bg-yellow-50"
+          />
+        </div>
+        <div className="space-y-1 text-sm">
+          <label
+            htmlFor="location"
+            className="block text-gray-600 font-semibold "
+          >
+            Location
+          </label>
+          <input
+            type="text"
+            {...register("location", { required: "* required field" })}
+            id="location"
+            placeholder="Your Location"
+            className="w-full px-4 py-3 rounded-sm border-b border-b-yellow-400 focus:outline-none bg-yellow-50"
+          />
+        </div>
+        <div className="space-y-1 text-sm">
           <p>What kind of account do you want ?</p>
           <div>
-          <input onClick={()=>setAccountStatus('buyer')} type="radio" id="buyer" name="accountStatus" value="Buyer" /> {" "}
-          <label htmlFor="buyer">Buyer</label>
+            <input
+              onClick={() => setAccountStatus("buyer")}
+              type="radio"
+              id="buyer"
+              name="accountStatus"
+              value="Buyer"
+            />
+              <label htmlFor="buyer">Buyer</label>
           </div>
-         
+
           <div>
-          <input onClick={()=>setAccountStatus('seller')} type="radio" id="seller" name="accountStatus" value="Seller" /> {" "}
-          <label htmlFor="seller">Seller</label>
+            <input
+              onClick={() => setAccountStatus("seller")}
+              type="radio"
+              id="seller"
+              name="accountStatus"
+              value="Seller"
+            />
+              <label htmlFor="seller">Seller</label>
           </div>
-         
         </div>
+
         <input
           type="submit"
           value="Sign Up"

@@ -44,6 +44,7 @@ const AuthProvider = ({ children }) => {
   //log out
   const logout = () => {
     setIsLoading(true)
+    localStorage.removeItem("accessToken")
     return signOut(auth);
   };
   //set user monitor

@@ -8,6 +8,7 @@ import Login from "../pages/generalPages/Login";
 import Signup from "../pages/generalPages/Signup";
 import AddProduct from "../pages/sellerOnlyPages.js/AddProduct";
 import MyProducts from "../pages/sellerOnlyPages.js/MyProducts";
+import PrivateRoute from "./PrivateRoute";
 import SellerRoute from "./SellerRoute";
 
 
@@ -40,11 +41,11 @@ export const router = createBrowserRouter([
   },
   {
     path: '/dashboard',
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
       {
         path: '/dashboard/addProduct',
-        element:<AddProduct></AddProduct>
+        element:<SellerRoute><AddProduct></AddProduct></SellerRoute>
       },
       {
         path: '/dashboard/myProducts',

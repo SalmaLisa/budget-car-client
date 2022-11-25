@@ -5,6 +5,7 @@ import Loader from "../../shared/Loader";
 
 const AddProduct = () => {
   const { user, loading } = useContext(AuthContext);
+  console.log(user);
   if (loading) {
     <Loader></Loader>
   }
@@ -14,6 +15,7 @@ const AddProduct = () => {
     const productName = form.productName.value
     const image = form.image.files[0]
     const location = form.location.value;
+    const model = form.model.value;
     const resalePrice = form.resalePrice.value;
     const originalPrice = form.originalPrice.value;
     const useYear = form.useYear.value;
@@ -41,7 +43,8 @@ const AddProduct = () => {
       .then(data => {
         const addProductInfo = {
           productName,
-          image:data.data.url,
+          image: data.data.url,
+          model,
           location,
           resalePrice,
           originalPrice,
@@ -105,13 +108,26 @@ const AddProduct = () => {
               />
             </div>
 
-            <div className="col-span-full">
+            <div className="col-span-3">
               <label htmlFor="location" className="text-sm">
                 Location
               </label>
               <input
                 name="location"
                 id="location"
+                type="text"
+                placeholder=""
+                className="w-full rounded-md  px-4 py-3 focus:outline-none border  text-gray-900"
+                required
+              />
+            </div>
+            <div className="col-span-3">
+              <label htmlFor="model" className="text-sm">
+                Car Model
+              </label>
+              <input
+                name="model"
+                id="model"
                 type="text"
                 placeholder=""
                 className="w-full rounded-md  px-4 py-3 focus:outline-none border  text-gray-900"
@@ -174,7 +190,7 @@ const AddProduct = () => {
                 name="username"
                 id="username"
                 type="text"
-                defaultValue={user.displayName}
+                defaultValue={user?.displayName}
                 className="w-full px-4 py-3 rounded-md  focus:outline-none border text-gray-900"
                 disabled
                 required

@@ -3,20 +3,19 @@ import { useEffect, useState } from 'react';
 
 const useSeller = (email) => {
   const [isSeller, setIsSeller] = useState(false);
-  const [sellerLoading, setSellerLoading] = useState(false);
+  const [isSellerLoading, setIsSellerLoading] = useState(true);
   useEffect(() => {
     if (email) {
-      setSellerLoading(true)
       fetch(`http://localhost:5000/seller/${email}`)
         .then(res=>res.json())
         .then(data => {
-          console.log(data)
-          setSellerLoading(false)
+          setIsSeller(data.isSeller)
+          setIsSellerLoading(false)
         })
       .catch(err=>console.log(err))
    }
   }, [email])
-  return [isSeller,sellerLoading]
+  return [isSeller,isSellerLoading]
 };
 
 export default useSeller;

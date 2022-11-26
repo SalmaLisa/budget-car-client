@@ -120,7 +120,7 @@ const AllSeller = () => {
                   <button
                     onClick={() => handleDelete(seller)}
                     title="Delete"
-                    className="bg-red-500 text-white px-8 py-1 rounded"
+                    className="bg-red-600 text-white px-8 py-1 rounded"
                   >
                     Delete
                   </button>

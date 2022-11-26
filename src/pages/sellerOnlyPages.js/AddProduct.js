@@ -1,46 +1,59 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/AuthProvider";
-import Loader from "../../shared/Loader";
+
 
 const AddProduct = () => {
-  const { user, loading } = useContext(AuthContext);
-  console.log(user);
-  if (loading) {
-    <Loader></Loader>
-  }
-  const handleSubmit = e => {
-    e.preventDefault()
-    const form = e.target 
-    const productName = form.productName.value
-    const image = form.image.files[0]
+  const { user } = useContext(AuthContext);
+  const [conditionType, setConditionType] = useState('Excellent');
+  console.log(conditionType)
+  const navigate = useNavigate()
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const productName = form.productName.value;
+    const image = form.image.files[0];
     const location = form.location.value;
     const model = form.model.value;
     const resalePrice = form.resalePrice.value;
     const originalPrice = form.originalPrice.value;
     const useYear = form.useYear.value;
+    const purchaseYear = form.purchaseYear.value;
+    const description = form.description.value;
     const sellerName = form.username.value;
     const sellerEmail = form.email.value;
     const phone = form.phone.value;
 
-    //time 
+    //time
     const today = new Date();
     const hour = today.getHours();
     const minutes = today.getMinutes();
-    const min = `${minutes < 10 ? '0' + minutes : minutes}`
-    const time = `${hour>12?(hour-12):hour}:${min} ${hour>12?"PM":"AM"}`
-   
-    
-  
-    const formData = new FormData()
-    formData.append('image', image)
-    fetch(`https://api.imgbb.com/1/upload?expiration=600&key=${process.env.REACT_APP_IMAGEBB_KEY}`, {
-      method: "POST",
-     
-      body:formData
-    })
-      .then(res => res.json())
-      .then(data => {
+    const min = `${minutes < 10 ? "0" + minutes : minutes}`;
+    const time = `${hour > 12 ? hour - 12 : hour}:${min} ${
+      hour > 12 ? "PM" : "AM"
+    }`;
+    //date
+    const days = today.getDate();
+    const month = today.getMonth();
+    const year = today.getFullYear();
+    const date = `${days}/${month + 1}/${year}`;
+
+    //image upload to imageBB
+    const formData = new FormData();
+    formData.append("image", image);
+    fetch(
+      `https://api.imgbb.com/1/upload?expiration=600&key=${process.env.REACT_APP_IMAGEBB_KEY}`,
+      {
+        method: "POST",
+
+        body: formData,
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.data.url);
         const addProductInfo = {
           productName,
           image: data.data.url,
@@ -49,31 +62,36 @@ const AddProduct = () => {
           resalePrice,
           originalPrice,
           useYear,
+          conditionType,
+          purchaseYear,
+          description,
+          saleStatus: "available",
           sellerName,
           sellerEmail,
           phone,
-          postTime:time
-        }
-        fetch('http://localhost:5000/allCar', {
+          postTime: time,
+          date,
+        };
+        fetch("http://localhost:5000/allCar", {
           method: "POST",
           headers: {
-            "content-type":"application/json"
+            "content-type": "application/json",
           },
-          body:JSON.stringify(addProductInfo)
+          body: JSON.stringify(addProductInfo),
         })
-          .then(res => res.json())
-          .then(data => {
+          .then((res) => res.json())
+          .then((data) => {
             if (data.acknowledged) {
               Swal.fire({
                 icon: "success",
                 text: "product is successfully added",
               });
-              form.reset()
+              form.reset();
+              navigate('/dashboard/myProducts')
             }
-            console.log(data)
-          })
-      })
-    
+            console.log(data);
+          });
+      });
   };
   return (
     <section className="p-6 bg-gray-100 text-gray-900 ">
@@ -108,7 +126,7 @@ const AddProduct = () => {
               />
             </div>
 
-            <div className="col-span-3">
+            <div className="col-span-full sm:col-span-2">
               <label htmlFor="location" className="text-sm">
                 Location
               </label>
@@ -121,7 +139,7 @@ const AddProduct = () => {
                 required
               />
             </div>
-            <div className="col-span-3">
+            <div className="col-span-full sm:col-span-2">
               <label htmlFor="model" className="text-sm">
                 Car Model
               </label>
@@ -135,11 +153,24 @@ const AddProduct = () => {
               />
             </div>
             <div className="col-span-full sm:col-span-2">
+              <label htmlFor="conditionType" className="text-sm">
+                Condition Type
+              </label>
+              <select onChange={(e)=>setConditionType(e.target.value)} className="select select-bordered focus:outline-none w-full max-w-xs">
+                <option value="Excellent" selected>
+                  Excellent
+                </option>
+
+                <option value="Good">Good</option>
+                <option value="Fair">Fair</option>
+              </select>
+            </div>
+            <div className="col-span-full sm:col-span-2">
               <label htmlFor="resalePrice" className="text-sm">
                 Resale Price
               </label>
               <input
-              required
+                required
                 name="resalePrice"
                 id="resalePrice"
                 type="text"
@@ -162,7 +193,7 @@ const AddProduct = () => {
             </div>
             <div className="col-span-full sm:col-span-2">
               <label htmlFor="useYear" className="text-sm">
-                Year if Use
+                Year of Use
               </label>
               <input
                 name="useYear"
@@ -171,6 +202,32 @@ const AddProduct = () => {
                 placeholder=""
                 className="w-full  px-4 py-3 rounded-md  focus:outline-none border "
                 required
+              />
+            </div>
+            <div className="col-span-full sm:col-span-2">
+              <label htmlFor="purchaseYear" className="text-sm">
+                Purchase Year
+              </label>
+              <input
+                name="purchaseYear"
+                id="purchaseYear"
+                type="text"
+                placeholder=""
+                className="w-full  px-4 py-3 rounded-md  focus:outline-none border "
+                required
+              />
+            </div>
+            <div className="col-span-full sm:col-span-4">
+              <label htmlFor="description" className="text-sm">
+                Description
+              </label>
+              <input
+                name="description"
+                id="description"
+                type="text"
+                placeholder=""
+                className="w-full  px-4 py-3 rounded-md  focus:outline-none border "
+                
               />
             </div>
           </div>
@@ -225,7 +282,6 @@ const AddProduct = () => {
             </div>
           </div>
           <input
-         
             type="submit"
             value="Add Product"
             className="bg-yellow-100 border-yellow-400 border my-6 px-5 py-3 cursor-pointer"

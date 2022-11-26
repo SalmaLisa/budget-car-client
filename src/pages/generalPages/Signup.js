@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -212,7 +212,7 @@ const Signup = () => {
         <input
           type="submit"
           value="Sign Up"
-          className="block w-full bg-yellow-100 p-2 text-center rounded-sm border-2 text-xl border-l-yellow-400 border-r-zinc-700 border-t-zinc-700 border-b-yellow-400 text-zinc-700 "
+          className="block w-full bg-yellow-100 p-2 text-center rounded-sm border-2 text-xl border-l-yellow-400 border-r-zinc-700 border-t-zinc-700 border-b-yellow-400 text-zinc-700 cursor-pointer"
         />
       </form>
       <div className="flex items-center pt-4 space-x-1">

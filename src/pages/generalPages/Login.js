@@ -99,7 +99,7 @@ const Login = () => {
             </Link>
           </div>
         </div>
-        <input type='submit'  value=" Sign in" className="block w-full bg-yellow-100 p-2 text-center rounded-sm border-2 text-xl border-l-yellow-400 border-r-zinc-700 border-t-zinc-700 border-b-yellow-400 text-zinc-700 ">
+        <input type='submit'  value=" Sign in" className="block w-full bg-yellow-100 p-2 text-center rounded-sm border-2 text-xl border-l-yellow-400 border-r-zinc-700 border-t-zinc-700 border-b-yellow-400 text-zinc-700 cursor-pointer">
          
         </input>
       </form>

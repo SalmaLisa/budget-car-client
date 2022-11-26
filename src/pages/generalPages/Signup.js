@@ -28,12 +28,18 @@ const Signup = () => {
         toast.success("user created successfully");
 
         //access token =====================
-        axios.get('http://localhost:5000/jwt')
-        .then(res => {
-          const token = res.data.token
-          localStorage.setItem("accessToken",token)
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ email: result.user.email }),
         })
-          .catch(err => console.log(err))
+          .then((res) => res.json())
+          .then((data) => {
+            const token = data.token;
+            localStorage.setItem("accessToken", token);
+          });
         //==============================
         updateUserName(data.username)
           .then((result) => {
@@ -68,16 +74,22 @@ const Signup = () => {
           userEmail: user.email,
           accountStatus: accountStatus,
         };
-        
-         //access token =====================
-         axios.get('http://localhost:5000/jwt')
-         .then(res => {
-           const token = res.data.token
-           localStorage.setItem("accessToken",token)
-         })
-           .catch(err => console.log(err))
-         //==============================
-        
+
+        //access token =====================
+        fetch("http://localhost:5000/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ email: result.user.email }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const token = data.token;
+            localStorage.setItem("accessToken", token);
+          });
+        //==============================
+
         fetch("http://localhost:5000/allAccounts", {
           method: "POST",
           headers: {

@@ -8,6 +8,7 @@ import Login from "../pages/generalPages/Login";
 import Signup from "../pages/generalPages/Signup";
 import AddProduct from "../pages/sellerOnlyPages.js/AddProduct";
 import MyProducts from "../pages/sellerOnlyPages.js/MyProducts";
+import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import SellerRoute from "./SellerRoute";
 
@@ -53,11 +54,11 @@ export const router = createBrowserRouter([
       },
       {
         path: '/dashboard/allBuyers',
-        element:<AllBuyer></AllBuyer>
+        element:<AdminRoute><AllBuyer></AllBuyer></AdminRoute>
       },
       {
         path: '/dashboard/allSellers',
-        element:<AllSeller></AllSeller>
+        element:<AdminRoute><AllSeller></AllSeller></AdminRoute>
       },
     ]
   }

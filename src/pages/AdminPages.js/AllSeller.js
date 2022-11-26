@@ -29,7 +29,7 @@ const AllSeller = () => {
     },
   });
   if (isLoading) {
-    <DashboardLoader></DashboardLoader>;
+    return <DashboardLoader></DashboardLoader>;
   }
 
   // seller status verify

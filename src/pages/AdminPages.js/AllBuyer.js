@@ -1,20 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useContext } from "react";
 import toast from "react-hot-toast";
+import { AuthContext } from "../../contexts/AuthProvider";
 import DashboardLoader from "../../shared/DashboardLoader";
 
 const AllBuyer = () => {
+  const { user } = useContext(AuthContext);
   const {data: buyers=[],refetch, isLoading } = useQuery({
     queryKey: ['buyers'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:5000/buyers')
+      const res = await fetch('http://localhost:5000/buyers', {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify({ email: user?.email }),
+      })
       const data = res.json()
       return data
     }
   })
   if (isLoading) {
-    <DashboardLoader></DashboardLoader>
+   return <DashboardLoader></DashboardLoader>
   }
   const handleDelete = buyer => {
     axios.delete(`http://localhost:5000/sellers/${buyer._id}`, {

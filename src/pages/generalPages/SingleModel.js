@@ -17,6 +17,7 @@ const SingleModel = () => {
           <h1>{carModel}</h1>
         </div>
       </div>
+      
       <div className=" my-20">
         {cars.map(car=><CarCard car={car} setCarModel ={setCarModel}></CarCard>)}
       </div>

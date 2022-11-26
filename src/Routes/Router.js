@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
       },
       {
         path: '/carModels/:model',
-        element: <SingleModel></SingleModel>,
+        element: <PrivateRoute><SingleModel></SingleModel></PrivateRoute>,
         loader:({params})=>fetch(`http://localhost:5000/carModels/${params.model}`)
       },
     ]

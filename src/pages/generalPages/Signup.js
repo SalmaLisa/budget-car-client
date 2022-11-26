@@ -7,6 +7,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 
 const Signup = () => {
   const [accountStatus, setAccountStatus] = useState("buyer");
+  
   const {
     register,
     handleSubmit,

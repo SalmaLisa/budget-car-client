@@ -6,6 +6,7 @@ import AllSeller from "../pages/AdminPages.js/AllSeller";
 import Home from "../pages/generalPages/Home";
 import Login from "../pages/generalPages/Login";
 import Signup from "../pages/generalPages/Signup";
+import SingleModel from "../pages/generalPages/SingleModel";
 import AddProduct from "../pages/sellerOnlyPages.js/AddProduct";
 import MyProducts from "../pages/sellerOnlyPages.js/MyProducts";
 import AdminRoute from "./AdminRoute";
@@ -37,6 +38,11 @@ export const router = createBrowserRouter([
       {
         path: '/signup',
         element:<Signup></Signup>,
+      },
+      {
+        path: '/carModels/:model',
+        element: <SingleModel></SingleModel>,
+        loader:({params})=>fetch(`http://localhost:5000/carModels/${params.model}`)
       },
     ]
   },

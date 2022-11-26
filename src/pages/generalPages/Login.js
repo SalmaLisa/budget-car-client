@@ -2,13 +2,16 @@ import axios from "axios";
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 
 const Login = () => {
   const { register, handleSubmit,reset, formState: { errors } } = useForm()
-  const {login,googleSignIn}=useContext(AuthContext)
+  const { login, googleSignIn } = useContext(AuthContext)
+  const navigate = useNavigate()
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/home'
   const onSubmit = data => {
     login(data.email, data.password)
     .then(result => {
@@ -28,7 +31,8 @@ const Login = () => {
           const token = data.token
           localStorage.setItem("accessToken",token)
         })
-       reset()
+      reset()
+      navigate(from, {replace:true})
     })
     .catch(err => {
       console.log(err)
@@ -55,6 +59,7 @@ const Login = () => {
           const token = data.token
           localStorage.setItem("accessToken",token)
         })
+        navigate(from, {replace:true})
       })
       .catch(err => {
         console.log(err)

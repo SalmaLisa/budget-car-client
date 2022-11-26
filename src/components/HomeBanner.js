@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -18,6 +18,7 @@ const HomeBanner = () => {
       <Swiper
         spaceBetween={30}
         centeredSlides={true}
+        loop={true}
         autoplay={{
           delay: 5000,
           disableOnInteraction: false,
@@ -62,6 +63,7 @@ const HomeBanner = () => {
           </p>
         </div>
       </Swiper>
+      <div className="bg-yellow-300 w-2/3 mx-auto h-[20px]"></div>
     </section>
   );
 };

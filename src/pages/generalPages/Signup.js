@@ -2,12 +2,12 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const Signup = () => {
   const [accountStatus, setAccountStatus] = useState("buyer");
-  
+  const navigate = useNavigate()
   const {
     register,
     handleSubmit,
@@ -57,6 +57,7 @@ const Signup = () => {
           .catch((err) => console.log(err));
         reset();
         setAccountStatus("buyer");
+        navigate('/home')
       })
       .catch((err) => {
         console.log(err);
@@ -100,6 +101,7 @@ const Signup = () => {
         })
           .then((res) => res.json())
           .then((data) => console.log(data));
+          navigate('/home')
       })
       .catch((err) => {
         console.log(err);

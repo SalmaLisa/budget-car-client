@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -7,7 +7,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 
 
 const Login = () => {
-  const { register, handleSubmit,reset, formState: { errors } } = useForm()
+  const { register, handleSubmit, formState: { errors } } = useForm()
   const { login, googleSignIn } = useContext(AuthContext)
   const navigate = useNavigate()
   const location = useLocation()
@@ -16,14 +16,14 @@ const Login = () => {
     login(data.email, data.password)
     .then(result => {
       console.log(result.user)
-      toast.success("successfully logged in")
+      const currentUser={email:result.user.email}
      
       fetch('http://localhost:5000/jwt', {
         method:"POST",
         headers: {
           "content-type":"application/json"
         },
-        body:JSON.stringify({email:result.user.email})
+        body:JSON.stringify(currentUser)
       })
         .then(res =>res.json())
         .then(data => {
@@ -31,13 +31,14 @@ const Login = () => {
           const token = data.token
           localStorage.setItem("accessToken",token)
         })
-      reset()
+        toast.success("successfully logged in")
       navigate(from, {replace:true})
     })
     .catch(err => {
       console.log(err)
       toast.error(err.message)
   })
+
   };
 
   //google login
@@ -55,7 +56,6 @@ const Login = () => {
       })
         .then(res =>res.json())
         .then(data => {
-         
           const token = data.token
           localStorage.setItem("accessToken",token)
         })
@@ -104,9 +104,9 @@ const Login = () => {
             </Link>
           </div>
         </div>
-        <input type='submit'  value=" Sign in" className="block w-full bg-yellow-100 p-2 text-center rounded-sm border-2 text-xl border-l-yellow-400 border-r-zinc-700 border-t-zinc-700 border-b-yellow-400 text-zinc-700 cursor-pointer">
+        <input type='submit'  value=" Sign in" className="block w-full bg-yellow-100 p-2 text-center rounded-sm border-2 text-xl border-l-yellow-400 border-r-zinc-700 border-t-zinc-700 border-b-yellow-400 text-zinc-700 cursor-pointer"/>
          
-        </input>
+        
       </form>
       <div className="flex items-center pt-4 space-x-1">
         <div className="flex-1 h-px sm:w-16 bg-gray-300"></div>

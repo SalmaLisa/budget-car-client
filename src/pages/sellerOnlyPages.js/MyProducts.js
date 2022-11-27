@@ -13,7 +13,7 @@ const MyProducts = () => {
     refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["sellers"],
+    queryKey: ["products"],
     queryFn: async () => {
       const res = await fetch("http://localhost:5000/products", {
         method: "POST",
@@ -30,11 +30,15 @@ const MyProducts = () => {
   if (isLoading) {
     return <DashboardLoader></DashboardLoader>;
   }
-
+console.log(products);
   //product advertise ===================
   const handleAdvertise = (product) => {
     axios
-      .put(`http://localhost:5000/products/advertise/${product._id}`)
+      .put(`http://localhost:5000/products/advertise/${product._id}`, {
+        headers: {
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
       .then((data) => {
         if (data.data.modifiedCount > 0) {
           Swal.fire({

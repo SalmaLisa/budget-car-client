@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/AuthProvider";
 import DashboardLoader from "../../shared/DashboardLoader";
+import { TiTick } from "react-icons/ti";
 
 const AllSeller = () => {
   const { user } = useContext(AuthContext);
@@ -104,9 +105,7 @@ const AllSeller = () => {
 
                 <td>
                   {seller.sellerStatus === "verified" ? (
-                    <button className="bg-green-600 text-white px-8 py-1 rounded">
-                      Verified
-                    </button>
+                    <TiTick className=" ml-1 text-5xl text-blue-600"></TiTick>
                   ) : (
                     <button
                       onClick={() => handleVerify(seller._id)}

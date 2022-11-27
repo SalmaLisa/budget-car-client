@@ -3,12 +3,11 @@ import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/AuthProvider";
 
-
 const AddProduct = () => {
   const { user } = useContext(AuthContext);
-  const [conditionType, setConditionType] = useState('Excellent');
-  console.log(conditionType)
-  const navigate = useNavigate()
+  const [conditionType, setConditionType] = useState("Excellent");
+  console.log(conditionType);
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -87,7 +86,7 @@ const AddProduct = () => {
                 text: "product is successfully added",
               });
               form.reset();
-              navigate('/dashboard/myProducts')
+              navigate("/dashboard/myProducts");
             }
             console.log(data);
           });
@@ -156,8 +155,11 @@ const AddProduct = () => {
               <label htmlFor="conditionType" className="text-sm">
                 Condition Type
               </label>
-              <select onChange={(e)=>setConditionType(e.target.value)} className="select select-bordered focus:outline-none w-full max-w-xs">
-                <option value="Excellent" selected>
+              <select
+                onChange={(e) => setConditionType(e.target.value)}
+                className="select select-bordered focus:outline-none w-full max-w-xs"
+              >
+                <option value="Excellent" defaultValue>
                   Excellent
                 </option>
 
@@ -227,7 +229,6 @@ const AddProduct = () => {
                 type="text"
                 placeholder=""
                 className="w-full  px-4 py-3 rounded-md  focus:outline-none border "
-                
               />
             </div>
           </div>

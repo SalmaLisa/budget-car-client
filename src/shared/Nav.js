@@ -38,45 +38,29 @@ const Nav = () => {
               Home
             </Link>
           </li>
-          <li>
-            <Link
-              to='/dashboard'
-              aria-label="dashboard"
-              title="dashboard"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Dashboard
-            </Link>
-          </li>
-          <li>
-            <Link
-              aria-label="Product pricing"
-              title="Product pricing"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              Pricing
-            </Link>
-          </li>
-          <li>
-            <Link
-              aria-label="About us"
-              title="About us"
-              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-            >
-              About us
-            </Link>
-          </li>
           {user?.uid ? (
-            <li onClick={handleSignOut}>
-              <Link
-                to="/home"
-                className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-zinc-700 border border-yellow-400 transition duration-200 rounded shadow-md bg-yellow-100 "
-                aria-label="Sign Out"
-                title="Sign Out"
-              >
-                Sign Out
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link
+                  to="/dashboard"
+                  aria-label="dashboard"
+                  title="dashboard"
+                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                >
+                  Dashboard
+                </Link>
+              </li>
+              <li onClick={handleSignOut}>
+                <Link
+                  to="/home"
+                  className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-zinc-700 border border-yellow-400 transition duration-200 rounded shadow-md bg-yellow-100 "
+                  aria-label="Sign Out"
+                  title="Sign Out"
+                >
+                  Sign Out
+                </Link>
+              </li>
+            </>
           ) : (
             <li>
               <Link

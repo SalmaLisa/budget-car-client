@@ -6,14 +6,21 @@ import DashboardLoader from "../../shared/DashboardLoader";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
+  const email =user.email
   const {
     data: bookings = [],
-    refetch,
     isLoading,
   } = useQuery({
-    queryKey: ["bookings"],
+    queryKey: ["bookings",email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/bookings/${user?.email}`);
+      const res = await fetch(`http://localhost:5000/bookings/${email}`, {
+        method: "POST",
+        headers: {
+          "content-type":"application/json",
+          authorization: `bearer ${localStorage.getItem("accessToken")}`,
+        },
+        body: JSON.stringify({ email:email }),
+      });
       const data = res.json();
       return data;
     },

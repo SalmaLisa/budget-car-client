@@ -10,15 +10,10 @@ const SideNav = () => {
   const [isSeller] = useSeller(user?.email);
   const [isBuyer] = useBuyer(user?.email);
   const [isAdmin] = useAdmin(user?.email);
-  console.log(isBuyer)
+  console.log(isBuyer);
   return (
     <div className="h-full p-3 space-y-2 w-60 bg-yellow-100 text-gray-800">
       <div className="flex items-center p-2 space-x-4">
-        <img
-          src=""
-          alt=""
-          className="w-12 h-12 rounded-full bg-gray-500"
-        />
         <div>
           <h2 className="text-lg font-semibold">
             {user?.displayName.toUpperCase()}
@@ -32,16 +27,16 @@ const SideNav = () => {
       </div>
       <div className="divide-y divide-gray-300">
         <ul className="pt-2 pb-4 space-y-1 ml-3 ">
-          {isBuyer &&
+          {isBuyer && (
             <li className=" text-gray-900">
-            <Link
-              to="/dashboard/MyOrders"
-              className="p-2 rounded-md text-lg inline-block"
-            >
-              <span>My Orders</span>
-            </Link>
-          </li>
-      }
+              <Link
+                to="/dashboard/MyOrders"
+                className="p-2 rounded-md text-lg inline-block"
+              >
+                <span>My Orders</span>
+              </Link>
+            </li>
+          )}
           {isSeller && (
             <>
               <li className=" text-gray-900">
@@ -63,35 +58,34 @@ const SideNav = () => {
               </li>
             </>
           )}
-          {
-            isAdmin &&
+          {isAdmin && (
             <>
-             <li>
-            <Link
-              to="/dashboard/allBuyers"
-              className=" p-2 rounded-md text-lg inline-block"
-            >
-              <span>All Buyers</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/dashboard/allSellers"
-              className=" p-2 rounded-md text-lg inline-block"
-            >
-              <span>All Sellers</span>
-            </Link>
+              <li>
+                <Link
+                  to="/dashboard/allBuyers"
+                  className=" p-2 rounded-md text-lg inline-block"
+                >
+                  <span>All Buyers</span>
+                </Link>
               </li>
-          <li>
-            <Link
-              to="/dashboard/reportedItems"
-              className=" p-2 rounded-md text-lg inline-block"
-            >
-              <span>Reported Items</span>
-            </Link>
+              <li>
+                <Link
+                  to="/dashboard/allSellers"
+                  className=" p-2 rounded-md text-lg inline-block"
+                >
+                  <span>All Sellers</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/dashboard/reportedItems"
+                  className=" p-2 rounded-md text-lg inline-block"
+                >
+                  <span>Reported Items</span>
+                </Link>
               </li>
             </>
-         }
+          )}
         </ul>
       </div>
     </div>

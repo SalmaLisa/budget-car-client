@@ -48,10 +48,10 @@ const CarCard = ({ car, setCarInfo, setCarModel }) => {
       <div className="bg-yellow-300 w-2/3 mx-auto h-[20px]"></div>
       <div className=" mb-10 py-12  bg-base-200">
         <div className="card lg:card-side">
-          <div className="w-5/12 p-12">
+          <div className="md:w-5/12 md:p-12">
             <img className="w-full" src={image} alt="Album" />
           </div>
-          <div className="card-bod p-0">
+          <div className="card-body md:p-0 ">
             <h2 className="text-2xl font-bold text-yellow-500 italic ">
               {productName}
             </h2>
@@ -112,7 +112,7 @@ const CarCard = ({ car, setCarInfo, setCarModel }) => {
             </div>
             <div className="card-actions justify-end">
               {saleStatus !== "available" ? (
-                <>
+                <div className="mt-10 md:mt-0">
                   <button
                     className="bg-yellow-100 opacity-60  border border-yellow-600 px-5 py-2 font-bold "
                     disabled
@@ -125,9 +125,9 @@ const CarCard = ({ car, setCarInfo, setCarModel }) => {
                   >
                     Report this item
                   </button>
-                </>
+                </div>
               ) : (
-                <>
+                <div className="mt-10 md:mt-0">
                   <label
                     onClick={() => setCarInfo(car)}
                     htmlFor="booking-modal"
@@ -141,7 +141,7 @@ const CarCard = ({ car, setCarInfo, setCarModel }) => {
                   >
                     Report this item
                   </button>
-                </>
+                </div>
               )}
             </div>
           </div>

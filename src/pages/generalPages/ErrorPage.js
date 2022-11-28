@@ -186,7 +186,7 @@ const ErrorPage = () => {
 					</svg>
 
 				</div>
-				<p class="text-sm md:text-base text-yellow-600 p-2 mb-4">The stuff you were looking for doesn't exist
+				<p class="text-sm md:text-base text-yellow-600 p-2 mb-4">The stuff Something went wrong !
 				</p>
             <Link
               to='/home'

@@ -8,8 +8,8 @@ import Swal from "sweetalert2";
 
 const PaymentPage = () => {
   const booking = useLoaderData();
-  const { productName, productPrice,username,email } = booking;
-  const price = parseInt(productPrice)
+  const { _id, productName, productPrice, username, email } = booking;
+  const price = parseInt(productPrice);
   console.log(booking);
   const stripe = useStripe();
   const elements = useElements();
@@ -17,29 +17,28 @@ const PaymentPage = () => {
 
   const [clientSecret, setClientSecret] = useState("");
 
-   //time
-   const today = new Date();
-   const hour = today.getHours();
-   const minutes = today.getMinutes();
-   const min = `${minutes < 10 ? "0" + minutes : minutes}`;
-   const time = `${hour > 12 ? hour - 12 : hour}:${min} ${
-     hour > 12 ? "PM" : "AM"
-   }`;
-   //date
-   const days = today.getDate();
-   const month = today.getMonth();
-   const year = today.getFullYear();
-   const date = `${days}/${month + 1}/${year}`;
+  //time
+  const today = new Date();
+  const hour = today.getHours();
+  const minutes = today.getMinutes();
+  const min = `${minutes < 10 ? "0" + minutes : minutes}`;
+  const time = `${hour > 12 ? hour - 12 : hour}:${min} ${
+    hour > 12 ? "PM" : "AM"
+  }`;
+  //date
+  const days = today.getDate();
+  const month = today.getMonth();
+  const year = today.getFullYear();
+  const date = `${days}/${month + 1}/${year}`;
 
   useEffect(() => {
-
     fetch("http://localhost:5000/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization : `bearer ${localStorage.getItem('accessToken')}`
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
       },
-      body: JSON.stringify({price:price}),
+      body: JSON.stringify({ price: price }),
     })
       .then((res) => res.json())
       .then((data) => setClientSecret(data.clientSecret));
@@ -70,27 +69,25 @@ const PaymentPage = () => {
       console.log("[PaymentMethod]", paymentMethod);
     }
 
-    const { paymentIntent, error: confirmError } = await stripe.confirmCardPayment(
-      clientSecret,
-      {
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: card,
           billing_details: {
             name: username,
-            email: email
+            email: email,
           },
         },
-      },
-    );
+      });
     if (confirmError) {
-      setPaymentError(confirmError.message)
-      return
+      setPaymentError(confirmError.message);
+      return;
     }
 
     if (paymentIntent.status === "succeeded") {
       Swal.fire({
         icon: "success",
-        title:"Congratulations ! Payment successful ",
+        title: "Congratulations ! Payment successful ",
         text: `TransactionId : ${paymentIntent.id}`,
       });
 
@@ -101,21 +98,30 @@ const PaymentPage = () => {
         price: productPrice,
         transactionId: paymentIntent.id,
         time,
-        date
-      }
+        date,
+      };
 
-      fetch('http://localhost:5000/payments', {
+      fetch("http://localhost:5000/payments", {
         method: "POST",
         headers: {
-          "content-type":"application/json"
+          "content-type": "application/json",
         },
-        body:JSON.stringify(paymentData)
+        body: JSON.stringify(paymentData),
       })
-        .then(res => res.json())
-      .then(data=>console.log(data))
-    }
-    console.log(paymentError)
+        .then((res) => res.json())
+        .then((data) => console.log(data));
 
+      fetch(`http://localhost:5000/bookingPayment/${_id}`, {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+    }
+
+    console.log(paymentError);
   };
   return (
     <div className="min-w-screen min-h-screen bg-gray-200 flex justify-center px-5 pb-10 pt-16">
@@ -139,7 +145,8 @@ const PaymentPage = () => {
 
         <div className="mb-10">
           <h1 className="text-center text-xl ">
-            Pay <span className="font-bold"> ${productPrice} </span> for <span className="font-bold">{productName}</span>
+            Pay <span className="font-bold"> ${productPrice} </span> for{" "}
+            <span className="font-bold">{productName}</span>
           </h1>
         </div>
 
@@ -163,7 +170,7 @@ const PaymentPage = () => {
         />
 
         {paymentError && <p className="text-red-600 mt-3">{paymentError}</p>}
-        
+
         <div>
           <button
             type="submit"

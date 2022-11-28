@@ -33,7 +33,7 @@ const CarCard = ({ car, setCarInfo, setCarModel }) => {
       resalePrice,
     };
 
-    fetch("http://localhost:5000/reportedItems", {
+    fetch("https://budget-car-server.vercel.app/reportedItems", {
       method: "POST",
       headers: {
         "content-type": "application/json",

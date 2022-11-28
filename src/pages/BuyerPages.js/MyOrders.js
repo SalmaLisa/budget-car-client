@@ -6,21 +6,21 @@ import DashboardLoader from "../../shared/DashboardLoader";
 
 const MyOrders = () => {
   const { user } = useContext(AuthContext);
-  const email =user.email
-  const {
-    data: bookings = [],
-    isLoading,
-  } = useQuery({
-    queryKey: ["bookings",email],
+  const email = user.email;
+  const { data: bookings = [], isLoading } = useQuery({
+    queryKey: ["bookings", email],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/bookings/${email}`, {
-        method: "POST",
-        headers: {
-          "content-type":"application/json",
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-        body: JSON.stringify({ email:email }),
-      });
+      const res = await fetch(
+        `https://budget-car-server.vercel.app/bookings/${email}`,
+        {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+          body: JSON.stringify({ email: email }),
+        }
+      );
       const data = res.json();
       return data;
     },

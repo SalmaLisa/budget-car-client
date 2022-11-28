@@ -20,7 +20,7 @@ const Login = () => {
         console.log(result.user);
         const currentUser = { email: result.user.email };
 
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://budget-car-server.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -48,7 +48,7 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         toast.success("successfully logged in");
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://budget-car-server.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",

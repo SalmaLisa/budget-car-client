@@ -32,7 +32,7 @@ const PaymentPage = () => {
   const date = `${days}/${month + 1}/${year}`;
 
   useEffect(() => {
-    fetch("http://localhost:5000/create-payment-intent", {
+    fetch("https://budget-car-server.vercel.app/create-payment-intent", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,8 +85,6 @@ const PaymentPage = () => {
     }
 
     if (paymentIntent.status === "succeeded") {
-      
-
       const paymentData = {
         username,
         email,
@@ -97,7 +95,7 @@ const PaymentPage = () => {
         date,
       };
 
-      fetch("http://localhost:5000/payments", {
+      fetch("https://budget-car-server.vercel.app/payments", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -113,10 +111,10 @@ const PaymentPage = () => {
               text: `TransactionId : ${paymentIntent.id}`,
             });
           }
-          console.log(data)
+          console.log(data);
         });
 
-      fetch(`http://localhost:5000/bookingPayment/${_id}`, {
+      fetch(`https://budget-car-server.vercel.app/bookingPayment/${_id}`, {
         method: "PATCH",
         headers: {
           "content-type": "application/json",

@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
-    errorElement:<ErrorPage></ErrorPage>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -57,7 +57,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/carModels/${params.model}`),
+          fetch(
+            `https://budget-car-server.vercel.app/carModels/${params.model}`
+          ),
       },
     ],
   },
@@ -68,17 +70,23 @@ export const router = createBrowserRouter([
         <Dashboard></Dashboard>
       </PrivateRoute>
     ),
-    errorElement:<ErrorPage></ErrorPage>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/dashboard/MyOrders",
-        element: <BuyerRoute><MyOrders></MyOrders></BuyerRoute>,
+        element: (
+          <BuyerRoute>
+            <MyOrders></MyOrders>
+          </BuyerRoute>
+        ),
       },
       {
         path: "/dashboard/payment/:id",
         element: <PaymentPage></PaymentPage>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/bookingPayment/${params.id}`),
+          fetch(
+            `https://budget-car-server.vercel.app/bookingPayment/${params.id}`
+          ),
       },
       {
         path: "/dashboard/addProduct",

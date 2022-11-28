@@ -15,7 +15,7 @@ const MyProducts = () => {
   } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const res = await fetch("http://localhost:5000/products", {
+      const res = await fetch("https://budget-car-server.vercel.app/products", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -34,11 +34,14 @@ const MyProducts = () => {
   //product advertise ===================
   const handleAdvertise = (product) => {
     axios
-      .put(`http://localhost:5000/products/advertise/${product._id}`, {
-        headers: {
-          authorization: `bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      .put(
+        `https://budget-car-server.vercel.app/products/advertise/${product._id}`,
+        {
+          headers: {
+            authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
       .then((data) => {
         if (data.data.modifiedCount > 0) {
           Swal.fire({
@@ -54,7 +57,7 @@ const MyProducts = () => {
   // product delete =====================
   const handleDelete = (product) => {
     axios
-      .delete(`http://localhost:5000/products/${product._id}`, {
+      .delete(`https://budget-car-server.vercel.app/products/${product._id}`, {
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },

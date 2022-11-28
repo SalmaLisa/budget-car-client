@@ -16,7 +16,7 @@ const SingleModelCar = () => {
       <div className="relative">
         <img className="w-full h-[250px]" src={banner} alt="" />
         <div className="w-full h-[250px] bg-black opacity-60 absolute top-0"></div>
-        <div className="absolute top-28 left-[520px] italic text-4xl text-white uppercase">
+        <div className="absolute top-28 md:left-[520px] left-16 italic text-4xl text-white uppercase">
           <h1>{carModel}</h1>
         </div>
       </div>

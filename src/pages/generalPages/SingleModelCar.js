@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { AuthContext } from "../../contexts/AuthProvider";
 
-const SingleModel = () => {
+const SingleModelCar = () => {
   const [carInfo, setCarInfo] = useState(null);
   const [carModel, setCarModel] = useState("");
   const cars = useLoaderData();
@@ -173,4 +173,4 @@ const SingleModel = () => {
   );
 };
 
-export default SingleModel;
+export default SingleModelCar;

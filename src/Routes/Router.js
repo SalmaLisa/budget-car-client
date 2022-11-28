@@ -4,22 +4,25 @@ import Main from "../layouts/Main";
 import AllBuyer from "../pages/AdminPages.js/AllBuyer";
 import AllSeller from "../pages/AdminPages.js/AllSeller";
 import ReportedItems from "../pages/AdminPages.js/ReportedItems";
+import PaymentPage from "../pages/BuyerPages.js/PaymentPage";
+import MyOrders from "../pages/BuyerPages.js/MyOrders";
 import Home from "../pages/generalPages/Home";
 import Login from "../pages/generalPages/Login";
-import MyOrders from "../pages/generalPages/MyOrders";
-import PaymentPage from "../pages/generalPages/PaymentPage";
 import Signup from "../pages/generalPages/Signup";
-import SingleModel from "../pages/generalPages/SingleModel";
 import AddProduct from "../pages/sellerOnlyPages.js/AddProduct";
 import MyProducts from "../pages/sellerOnlyPages.js/MyProducts";
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import SellerRoute from "./SellerRoute";
+import SingleModelCar from "../pages/generalPages/SingleModelCar";
+import BuyerRoute from "./BuyerRoute";
+import ErrorPage from "../pages/generalPages/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Main></Main>,
+    errorElement:<ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
@@ -45,7 +48,7 @@ export const router = createBrowserRouter([
         path: "/carModels/:model",
         element: (
           <PrivateRoute>
-            <SingleModel></SingleModel>
+            <SingleModelCar></SingleModelCar>
           </PrivateRoute>
         ),
         loader: ({ params }) =>
@@ -60,10 +63,11 @@ export const router = createBrowserRouter([
         <Dashboard></Dashboard>
       </PrivateRoute>
     ),
+    errorElement:<ErrorPage></ErrorPage>,
     children: [
       {
         path: "/dashboard/MyOrders",
-        element: <MyOrders></MyOrders>,
+        element: <BuyerRoute><MyOrders></MyOrders></BuyerRoute>,
       },
       {
         path: "/dashboard/payment/:id",

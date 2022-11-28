@@ -19,10 +19,10 @@ const CarModels = () => {
 
   return (
     <div className="my-20">
-      <h1 className="text-5xl text-center mb-16 italic">
+      <h1 className="text-5xl text-center mb-5 lg:mb-16 italic">
         Browse Our <span className="text-yellow-500">Models</span>
       </h1>
-      <div className=" md:w-5/6 mx-auto md:grid grid-cols-4 gap-6 mb-40">
+      <div className=" md:w-5/6 mx-auto md:grid grid-cols-4 gap-6 lg:mb-40">
         {carModels.map((carModel) => (
           <Link key={carModel._id} to={`/carModels/${carModel.model}`}>
             <div className="card card-compact bg-base-300 shadow-xl hover:bg-yellow-100">

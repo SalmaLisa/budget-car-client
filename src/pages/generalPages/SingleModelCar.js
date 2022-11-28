@@ -24,7 +24,7 @@ const SingleModelCar = () => {
       carModel: carInfo.model,
       paymentStatus: "unpaid",
     };
-    console.log("helloooooooooooooooooooooo", bookingInfo);
+    
     fetch("http://localhost:5000/bookings", {
       method: "POST",
       headers: {
@@ -41,6 +41,8 @@ const SingleModelCar = () => {
           });
         }
       });
+    
+      setCarInfo(null)
   };
 
   return (
@@ -58,8 +60,8 @@ const SingleModelCar = () => {
           <CarCard
             key={car._id}
             car={car}
-            setCarInfo={setCarInfo}
             setCarModel={setCarModel}
+            setCarInfo={setCarInfo}
           ></CarCard>
         ))}
       </div>

@@ -1,79 +1,79 @@
-
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 
-
 const Login = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm()
-  const { login, googleSignIn } = useContext(AuthContext)
-  const navigate = useNavigate()
-  const location = useLocation()
-  const from = location.state?.from?.pathname || '/home'
-  const onSubmit = data => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const { login, googleSignIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/home";
+  const onSubmit = (data) => {
     login(data.email, data.password)
-    .then(result => {
-      console.log(result.user)
-      const currentUser={email:result.user.email}
-     
-      fetch('http://localhost:5000/jwt', {
-        method:"POST",
-        headers: {
-          "content-type":"application/json"
-        },
-        body:JSON.stringify(currentUser)
-      })
-        .then(res =>res.json())
-        .then(data => {
-        
-          const token = data.token
-          localStorage.setItem("accessToken",token)
-        })
-        toast.success("successfully logged in")
-      navigate(from, {replace:true})
-    })
-    .catch(err => {
-      console.log(err)
-      toast.error(err.message)
-  })
+      .then((result) => {
+        console.log(result.user);
+        const currentUser = { email: result.user.email };
 
+        fetch("https://budget-car-server.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            const token = data.token;
+            localStorage.setItem("accessToken", token);
+          });
+        toast.success("successfully logged in");
+        navigate(from, { replace: true });
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      });
   };
 
   //google login
   const handleGoogleLogin = () => {
     googleSignIn()
-      .then(result => {
-        console.log(result.user)
-        toast.success("successfully logged in")
-        fetch('http://localhost:5000/jwt', {
-        method:"POST",
-        headers: {
-          "content-type":"application/json"
-        },
-        body:JSON.stringify({email:result.user.email})
-      })
-        .then(res =>res.json())
-        .then(data => {
-          const token = data.token
-          localStorage.setItem("accessToken",token)
+      .then((result) => {
+        console.log(result.user);
+        toast.success("successfully logged in");
+        fetch("https://budget-car-server.vercel.app/jwt", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify({ email: result.user.email }),
         })
-        navigate(from, {replace:true})
+          .then((res) => res.json())
+          .then((data) => {
+            const token = data.token;
+            localStorage.setItem("accessToken", token);
+          });
+        navigate(from, { replace: true });
       })
-      .catch(err => {
-        console.log(err)
-        toast.error(err.message)
-    })
-  }
+      .catch((err) => {
+        console.log(err);
+        toast.error(err.message);
+      });
+  };
   return (
     <div className="w-full max-w-md p-8 space-y-3 rounded-xl bg-yellow-50 text-gray-800 my-20 mx-auto">
       <h1 className="text-2xl font-bold text-center mb-5">Login</h1>
       <form
-       onSubmit={handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
         className="space-y-6 ng-untouched ng-pristine ng-valid"
       >
-         <div className="space-y-1 text-sm">
+        <div className="space-y-1 text-sm">
           <label htmlFor="email" className="block text-gray-600 font-semibold ">
             Email
           </label>
@@ -87,7 +87,10 @@ const Login = () => {
           {/* {errors.email && <span className="text-red-600">{errors.email}</span>} */}
         </div>
         <div className="space-y-1 text-sm">
-          <label htmlFor="password" className="block text-gray-600 font-semibold ">
+          <label
+            htmlFor="password"
+            className="block text-gray-600 font-semibold "
+          >
             Password
           </label>
           <input
@@ -97,16 +100,16 @@ const Login = () => {
             placeholder="Password"
             className="w-full px-4 py-3 rounded-sm border-b border-b-yellow-400 focus:outline-none bg-yellow-50"
           />
-         {/* {errors.password && <p className="text-red-600">{errors.password}</p>} */}
+          {/* {errors.password && <p className="text-red-600">{errors.password}</p>} */}
           <div className="flex justify-end text-xs text-gray-600">
-            <Link>
-              Forgot Password?
-            </Link>
+            <Link>Forgot Password?</Link>
           </div>
         </div>
-        <input type='submit'  value=" Sign in" className="block w-full bg-yellow-100 p-2 text-center rounded-sm border-2 text-xl border-l-yellow-400 border-r-zinc-700 border-t-zinc-700 border-b-yellow-400 text-zinc-700 cursor-pointer"/>
-         
-        
+        <input
+          type="submit"
+          value=" Sign in"
+          className="block w-full bg-yellow-100 p-2 text-center rounded-sm border-2 text-xl border-l-yellow-400 border-r-zinc-700 border-t-zinc-700 border-b-yellow-400 text-zinc-700 cursor-pointer"
+        />
       </form>
       <div className="flex items-center pt-4 space-x-1">
         <div className="flex-1 h-px sm:w-16 bg-gray-300"></div>
@@ -133,7 +136,7 @@ const Login = () => {
       <p className="text-sm text-center sm:px-6 text-gray-600">
         Don't have an account?
         <Link
-          to='/signup'
+          to="/signup"
           className=" text-gray-800 ml-3 font-semibold hover:text-yellow-600"
         >
           Sign up

@@ -1,4 +1,3 @@
-
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -7,7 +6,7 @@ import { AuthContext } from "../../contexts/AuthProvider";
 
 const Signup = () => {
   const [accountStatus, setAccountStatus] = useState("buyer");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -29,7 +28,7 @@ const Signup = () => {
         toast.success("user created successfully");
 
         //access token =====================
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://budget-car-server.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -44,7 +43,7 @@ const Signup = () => {
         //==============================
         updateUserName(data.username)
           .then((result) => {
-            fetch("http://localhost:5000/allAccounts", {
+            fetch("https://budget-car-server.vercel.app/allAccounts", {
               method: "POST",
               headers: {
                 "content-type": "application/json",
@@ -57,7 +56,7 @@ const Signup = () => {
           .catch((err) => console.log(err));
         reset();
         setAccountStatus("buyer");
-        navigate('/home')
+        navigate("/home");
       })
       .catch((err) => {
         console.log(err);
@@ -78,7 +77,7 @@ const Signup = () => {
         };
 
         //access token =====================
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://budget-car-server.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -92,7 +91,7 @@ const Signup = () => {
           });
         //==============================
 
-        fetch("http://localhost:5000/allAccounts", {
+        fetch("https://budget-car-server.vercel.app/allAccounts", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -101,7 +100,7 @@ const Signup = () => {
         })
           .then((res) => res.json())
           .then((data) => console.log(data));
-          navigate('/home')
+        navigate("/home");
       })
       .catch((err) => {
         console.log(err);

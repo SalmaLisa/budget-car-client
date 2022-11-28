@@ -16,72 +16,105 @@ import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import SellerRoute from "./SellerRoute";
 
-
- export const router = createBrowserRouter([
+export const router = createBrowserRouter([
   {
-    path: '/',
+    path: "/",
     element: <Main></Main>,
     children: [
       {
-        path: '/',
-        element:<Home></Home>,
+        path: "/",
+        element: <Home></Home>,
       },
       {
-        path: '/home',
-        element:<Home></Home>,
+        path: "/home",
+        element: <Home></Home>,
       },
       {
-        path: '/login',
-        element:<Login></Login>,
+        path: "/login",
+        element: <Login></Login>,
       },
       {
-        path: '/signup',
-        element:<Signup></Signup>,
+        path: "/signup",
+        element: <Signup></Signup>,
       },
       {
-        path: '/signup',
-        element:<Signup></Signup>,
-      },     
-      {
-        path: '/carModels/:model',
-        element: <PrivateRoute><SingleModel></SingleModel></PrivateRoute>,
-        loader:({params})=>fetch(`http://localhost:5000/carModels/${params.model}`)
+        path: "/signup",
+        element: <Signup></Signup>,
       },
-    ]
+      {
+        path: "/carModels/:model",
+        element: (
+          <PrivateRoute>
+            <SingleModel></SingleModel>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://budget-car-server.vercel.app/carModels/${params.model}`
+          ),
+      },
+    ],
   },
   {
-    path: '/dashboard',
-    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <Dashboard></Dashboard>
+      </PrivateRoute>
+    ),
     children: [
       {
-        path: '/dashboard/MyOrders',
-        element:<MyOrders></MyOrders>
+        path: "/dashboard/MyOrders",
+        element: <MyOrders></MyOrders>,
       },
       {
-        path: '/dashboard/payment/:id',
+        path: "/dashboard/payment/:id",
         element: <PaymentPage></PaymentPage>,
-        loader:({params})=>fetch(`http://localhost:5000/bookings/${params.id}`)
+        loader: ({ params }) =>
+          fetch(
+            `https://budget-car-server.vercel.app/bookingPayment/${params.id}`
+          ),
       },
       {
-        path: '/dashboard/addProduct',
-        element:<SellerRoute><AddProduct></AddProduct></SellerRoute>
+        path: "/dashboard/addProduct",
+        element: (
+          <SellerRoute>
+            <AddProduct></AddProduct>
+          </SellerRoute>
+        ),
       },
       {
-        path: '/dashboard/myProducts',
-        element:<SellerRoute><MyProducts></MyProducts></SellerRoute>
+        path: "/dashboard/myProducts",
+        element: (
+          <SellerRoute>
+            <MyProducts></MyProducts>
+          </SellerRoute>
+        ),
       },
       {
-        path: '/dashboard/allBuyers',
-        element:<AdminRoute><AllBuyer></AllBuyer></AdminRoute>
+        path: "/dashboard/allBuyers",
+        element: (
+          <AdminRoute>
+            <AllBuyer></AllBuyer>
+          </AdminRoute>
+        ),
       },
       {
-        path: '/dashboard/allSellers',
-        element:<AdminRoute><AllSeller></AllSeller></AdminRoute>
+        path: "/dashboard/allSellers",
+        element: (
+          <AdminRoute>
+            <AllSeller></AllSeller>
+          </AdminRoute>
+        ),
       },
       {
-        path: '/dashboard/reportedItems',
-        element:<AdminRoute><ReportedItems></ReportedItems></AdminRoute>
+        path: "/dashboard/reportedItems",
+        element: (
+          <AdminRoute>
+            <ReportedItems></ReportedItems>
+          </AdminRoute>
+        ),
       },
-    ]
-  }
- ])
+    ],
+  },
+]);

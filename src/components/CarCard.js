@@ -1,10 +1,7 @@
 import React from "react";
 import { TiTick } from "react-icons/ti";
 
-const CarCard = ({
-  car,
-  setCarModel
-}) => {
+const CarCard = ({ car, setCarInfo, setCarModel }) => {
   const {
     conditionType,
     date,
@@ -23,25 +20,28 @@ const CarCard = ({
     sellerName,
     useYear,
   } = car;
+
   setCarModel(model);
 
-
-//report an item
-  const handleReport = ()=> {
+  //report an item
+  const handleReport = () => {
     const reportedItem = {
-      image,productName,model,resalePrice
-    }
+      image,
+      productName,
+      model,
+      resalePrice,
+    };
 
-    fetch('http://localhost:5000/reportedItems', {
+    fetch("https://budget-car-server.vercel.app/reportedItems", {
       method: "POST",
       headers: {
-        "content-type":"application/json"
+        "content-type": "application/json",
       },
-      body:JSON.stringify(reportedItem)
+      body: JSON.stringify(reportedItem),
     })
-      .then(res => res.json())
-    .then(data=>console.log(data))
-  }
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  };
   return (
     <>
       <div className="bg-yellow-300 w-2/3 mx-auto h-[20px]"></div>
@@ -110,15 +110,17 @@ const CarCard = ({
               </div>
             </div>
             <div className="card-actions justify-end">
-              
               <label
-               
+                onClick={() => setCarInfo(car)}
                 htmlFor="booking-modal"
                 className="bg-yellow-100 hover:bg-yellow-200 border border-yellow-600 px-5 py-2 font-bold cursor-pointer"
               >
                 Book Now
               </label>
-              <button onClick={handleReport} className="bg-red-600 hover:bg-red-700 border text-white px-5 py-2  cursor-pointer ml-5">
+              <button
+                onClick={handleReport}
+                className="bg-red-600 hover:bg-red-700 border text-white px-5 py-2  cursor-pointer ml-5"
+              >
                 Report this item
               </button>
             </div>

@@ -17,6 +17,7 @@ const SingleModel = () => {
   const formSubmit = (data) => {
     const bookingInfo = {
       ...data,
+      carId:carInfo._id,
       productName: carInfo.productName,
       productPrice: carInfo.resalePrice,
       productImage: carInfo.image,
@@ -155,7 +156,7 @@ const SingleModel = () => {
                     required
                   />
                 </div>
-                <span onClick={() => setCarInfo(false)}>
+                <span>
                   <button
                     type="submit"
                     className="bg-yellow-100 border-yellow-400 border my-6 py-2 cursor-pointer w-full"

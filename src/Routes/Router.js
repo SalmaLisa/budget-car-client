@@ -49,9 +49,7 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://budget-car-server.vercel.app/carModels/${params.model}`
-          ),
+          fetch(`http://localhost:5000/carModels/${params.model}`),
       },
     ],
   },
@@ -71,9 +69,7 @@ export const router = createBrowserRouter([
         path: "/dashboard/payment/:id",
         element: <PaymentPage></PaymentPage>,
         loader: ({ params }) =>
-          fetch(
-            `https://budget-car-server.vercel.app/bookingPayment/${params.id}`
-          ),
+          fetch(`http://localhost:5000/bookingPayment/${params.id}`),
       },
       {
         path: "/dashboard/addProduct",

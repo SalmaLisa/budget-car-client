@@ -20,7 +20,7 @@ const Login = () => {
         console.log(result.user);
         const currentUser = { email: result.user.email };
 
-        fetch("https://budget-car-server.vercel.app/jwt", {
+        fetch("http://localhost:5000/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -29,6 +29,7 @@ const Login = () => {
         })
           .then((res) => res.json())
           .then((data) => {
+            console.log(data);
             const token = data.token;
             localStorage.setItem("accessToken", token);
           });
@@ -47,7 +48,7 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         toast.success("successfully logged in");
-        fetch("https://budget-car-server.vercel.app/jwt", {
+        fetch("http://localhost:5000/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",

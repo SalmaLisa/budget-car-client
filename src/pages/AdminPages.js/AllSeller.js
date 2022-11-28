@@ -17,7 +17,7 @@ const AllSeller = () => {
   } = useQuery({
     queryKey: ["sellers"],
     queryFn: async () => {
-      const res = await fetch("https://budget-car-server.vercel.app/sellers", {
+      const res = await fetch("http://localhost:5000/sellers", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -38,7 +38,7 @@ const AllSeller = () => {
   const handleVerify = (id) => {
     axios
       .put(
-        `https://budget-car-server.vercel.app/sellers/verifyStatus/${id}`,
+        `http://localhost:5000/sellers/verifyStatus/${id}`,
         {
           sellerStatus: "verified",
         },
@@ -67,7 +67,7 @@ const AllSeller = () => {
 
   const handleDelete = (seller) => {
     axios
-      .delete(`https://budget-car-server.vercel.app/sellers/${seller._id}`, {
+      .delete(`http://localhost:5000/sellers/${seller._id}`, {
         headers: {
           authorization: `bearer ${localStorage.getItem("accessToken")}`,
         },

@@ -13,9 +13,7 @@ const MyOrders = () => {
   } = useQuery({
     queryKey: ["bookings"],
     queryFn: async () => {
-      const res = await fetch(
-        `https://budget-car-server.vercel.app/bookings/${user?.email}`
-      );
+      const res = await fetch(`http://localhost:5000/bookings/${user?.email}`);
       const data = res.json();
       return data;
     },

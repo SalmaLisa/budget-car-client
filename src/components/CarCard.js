@@ -32,7 +32,7 @@ const CarCard = ({ car, setCarInfo, setCarModel }) => {
       resalePrice,
     };
 
-    fetch("https://budget-car-server.vercel.app/reportedItems", {
+    fetch("http://localhost:5000/reportedItems", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -47,9 +47,9 @@ const CarCard = ({ car, setCarInfo, setCarModel }) => {
       <div className="bg-yellow-300 w-2/3 mx-auto h-[20px]"></div>
       <div className=" mb-10 py-12  bg-base-200">
         <div className="card lg:card-side">
-          <figure>
-            <img className="w-7/12" src={image} alt="Album" />
-          </figure>
+          <div className="w-5/12 p-12">
+            <img className="w-full" src={image} alt="Album" />
+          </div>
           <div className="card-bod p-0">
             <h2 className="text-2xl font-bold text-yellow-500 italic ">
               {productName}
@@ -110,19 +110,38 @@ const CarCard = ({ car, setCarInfo, setCarModel }) => {
               </div>
             </div>
             <div className="card-actions justify-end">
-              <label
-                onClick={() => setCarInfo(car)}
-                htmlFor="booking-modal"
-                className="bg-yellow-100 hover:bg-yellow-200 border border-yellow-600 px-5 py-2 font-bold cursor-pointer"
-              >
-                Book Now
-              </label>
-              <button
-                onClick={handleReport}
-                className="bg-red-600 hover:bg-red-700 border text-white px-5 py-2  cursor-pointer ml-5"
-              >
-                Report this item
-              </button>
+              {saleStatus !== "available" ? (
+                <>
+                  <button
+                    className="bg-yellow-100 opacity-60  border border-yellow-600 px-5 py-2 font-bold "
+                    disabled
+                  >
+                    Book Now
+                  </button>
+                  <button
+                    className="bg-red-600 opacity-60  text-white px-5 py-2  ml-5"
+                    disabled
+                  >
+                    Report this item
+                  </button>
+                </>
+              ) : (
+                <>
+                  <label
+                    onClick={() => setCarInfo(car)}
+                    htmlFor="booking-modal"
+                    className="bg-yellow-100 hover:bg-yellow-200 border border-yellow-600 px-5 py-2 font-bold cursor-pointer"
+                  >
+                    Book Now
+                  </label>
+                  <button
+                    onClick={handleReport}
+                    className="bg-red-600 hover:bg-red-700 border text-white px-5 py-2  cursor-pointer ml-5"
+                  >
+                    Report this item
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>

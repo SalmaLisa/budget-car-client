@@ -28,7 +28,7 @@ const Signup = () => {
         toast.success("user created successfully");
 
         //access token =====================
-        fetch("https://budget-car-server.vercel.app/jwt", {
+        fetch("http://localhost:5000/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -43,7 +43,7 @@ const Signup = () => {
         //==============================
         updateUserName(data.username)
           .then((result) => {
-            fetch("https://budget-car-server.vercel.app/allAccounts", {
+            fetch("http://localhost:5000/allAccounts", {
               method: "POST",
               headers: {
                 "content-type": "application/json",
@@ -77,7 +77,7 @@ const Signup = () => {
         };
 
         //access token =====================
-        fetch("https://budget-car-server.vercel.app/jwt", {
+        fetch("http://localhost:5000/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -91,7 +91,7 @@ const Signup = () => {
           });
         //==============================
 
-        fetch("https://budget-car-server.vercel.app/allAccounts", {
+        fetch("http://localhost:5000/allAccounts", {
           method: "POST",
           headers: {
             "content-type": "application/json",

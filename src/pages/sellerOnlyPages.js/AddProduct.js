@@ -71,7 +71,7 @@ const AddProduct = () => {
           postTime: time,
           date,
         };
-        fetch("https://budget-car-server.vercel.app/allCar", {
+        fetch("http://localhost:5000/allCar", {
           method: "POST",
           headers: {
             "content-type": "application/json",

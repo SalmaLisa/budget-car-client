@@ -85,11 +85,7 @@ const PaymentPage = () => {
     }
 
     if (paymentIntent.status === "succeeded") {
-      Swal.fire({
-        icon: "success",
-        title: "Congratulations ! Payment successful ",
-        text: `TransactionId : ${paymentIntent.id}`,
-      });
+      
 
       const paymentData = {
         username,
@@ -109,7 +105,16 @@ const PaymentPage = () => {
         body: JSON.stringify(paymentData),
       })
         .then((res) => res.json())
-        .then((data) => console.log(data));
+        .then((data) => {
+          if (data.insertedId) {
+            Swal.fire({
+              icon: "success",
+              title: "Congratulations ! Payment successful ",
+              text: `TransactionId : ${paymentIntent.id}`,
+            });
+          }
+          console.log(data)
+        });
 
       fetch(`http://localhost:5000/bookingPayment/${_id}`, {
         method: "PATCH",

@@ -6,9 +6,7 @@ const ReportedItems = () => {
   const { data: reportedItems = [], isLoading } = useQuery({
     queryKey: ["reportedItems"],
     queryFn: async () => {
-      const res = await fetch(
-        "https://budget-car-server.vercel.app/reportedItems"
-      );
+      const res = await fetch("http://localhost:5000/reportedItems");
       const data = res.json();
       return data;
     },

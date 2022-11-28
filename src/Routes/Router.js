@@ -17,6 +17,7 @@ import SellerRoute from "./SellerRoute";
 import SingleModelCar from "../pages/generalPages/SingleModelCar";
 import BuyerRoute from "./BuyerRoute";
 import ErrorPage from "../pages/generalPages/ErrorPage";
+import BlogPage from "../pages/generalPages/BlogPage";
 
 export const router = createBrowserRouter([
   {
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: "/signup",
         element: <Signup></Signup>,
+      },
+      {
+        path: "/blog",
+        element: <BlogPage></BlogPage>,
       },
       {
         path: "/carModels/:model",

@@ -38,6 +38,16 @@ const Nav = () => {
               Home
             </Link>
           </li>
+          <li>
+            <Link
+              to="/blog"
+              aria-label="blog"
+              title="blog"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            >
+             Blog
+            </Link>
+          </li>
           {user?.uid ? (
             <>
               <li>

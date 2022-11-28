@@ -20,8 +20,11 @@ const Advertised = () => {
   console.log(advertisedProducts);
   return (
     <>
+    {
+      advertisedProducts.length !== 0 &&
+      <>
       <div className="bg-yellow-300 w-2/3 mx-auto h-[20px]"></div>
-      <div className="bg-base-300 p-16">
+      <div className="bg-base-300 p-16 pb-40">
         <h1 className="text-4xl text-center mb-16 italic">
           {" "}
           <span className="text-yellow-500 text-6xl">Latest</span> Collections
@@ -51,6 +54,7 @@ const Advertised = () => {
         </Swiper>
       </div>
     </>
+    }</>
   );
 };
 

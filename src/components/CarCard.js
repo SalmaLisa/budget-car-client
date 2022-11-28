@@ -22,6 +22,7 @@ const CarCard = ({ car, setCarInfo, setCarModel }) => {
   } = car;
 
   setCarModel(model);
+  console.log(car);
 
   //report an item
   const handleReport = () => {

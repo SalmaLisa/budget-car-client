@@ -28,7 +28,7 @@ const CarModels = () => {
             <div className="card card-compact bg-base-300 shadow-xl hover:bg-yellow-100">
               <img src={carModel.image} alt="Shoes" />
               <div className="card-body">
-                <h2 className="text-xl text-center font-bold">
+                <h2 className="text-2xl md:text-xl text-center font-bold">
                   {carModel.model}
                 </h2>
               </div>

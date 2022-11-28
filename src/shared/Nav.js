@@ -15,8 +15,8 @@ const Nav = () => {
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 shadow-sm shadow-yellow-100">
       <div className="relative flex items-center justify-between">
         <Link
-          aria-label="Company"
-          title="Company"
+          aria-label="logo"
+          title="logo"
           className="inline-flex items-center"
         >
           <img className=" w-20" src={logo} alt="" />
@@ -76,8 +76,8 @@ const Nav = () => {
               <Link
                 to="/login"
                 className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide text-zinc-700 border border-yellow-400 transition duration-200 rounded shadow-md bg-yellow-100 "
-                aria-label="Sign up"
-                title="Sign up"
+                aria-label="Sign in"
+                title="Sign in"
               >
                 Sign in
               </Link>
@@ -112,8 +112,8 @@ const Nav = () => {
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <Link
-                      aria-label="Company"
-                      title="Company"
+                      aria-label="logo"
+                      title="logo"
                       className="inline-flex items-center"
                     >
                       <img className=" w-20" src={logo} alt="" />
@@ -153,56 +153,54 @@ const Nav = () => {
                         Home
                       </Link>
                     </li>
+                   
+                   
+                    
                     <li>
-                      <Link
-                        aria-label="Our product"
-                        title="Our product"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        Features
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        aria-label="Product pricing"
-                        title="Product pricing"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        Pricing
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        aria-label="About us"
-                        title="About us"
-                        className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                      >
-                        About us
-                      </Link>
-                    </li>
-                    {user?.uid ? (
-                      <li onClick={handleSignOut}>
-                        <Link
-                          to="/home"
-                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-zinc-700 transition duration-200 rounded shadow-md bg-yellow-100 border border-yellow-400 "
-                          aria-label="Sign Out"
-                          title="Sign Out"
-                        >
-                          Sign Out
-                        </Link>
-                      </li>
-                    ) : (
-                      <li>
-                        <Link
-                          to="/login"
-                          className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-zinc-700 transition duration-200 rounded shadow-md bg-yellow-100 border border-yellow-400 "
-                          aria-label="Sign up"
-                          title="Sign up"
-                        >
-                          Sign in
-                        </Link>
-                      </li>
-                    )}
+            <Link
+              to="/blog"
+              aria-label="blog"
+              title="blog"
+              className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+            >
+             Blog
+            </Link>
+          </li>
+          {user?.uid ? (
+            <>
+              <li>
+                <Link
+                  to="/dashboard"
+                  aria-label="dashboard"
+                  title="dashboard"
+                  className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                >
+                  Dashboard
+                </Link>
+              </li>
+              <li onClick={handleSignOut}>
+                <Link
+                  to="/home"
+                  className="inline-flex items-center justify-center h-12 w-full font-medium tracking-wide text-zinc-700 border border-yellow-400 transition duration-200 rounded shadow-md bg-yellow-100 "
+                  aria-label="Sign Out"
+                  title="Sign Out"
+                >
+                  Sign Out
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li>
+              <Link
+                to="/login"
+                className="inline-flex items-center justify-center h-12 w-full font-medium tracking-wide text-zinc-700 border border-yellow-400 transition duration-200 rounded shadow-md bg-yellow-100 "
+                aria-label="Sign in"
+                title="Sign in"
+              >
+                Sign in
+              </Link>
+            </li>
+          )}
                   </ul>
                 </nav>
               </div>

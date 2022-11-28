@@ -55,7 +55,7 @@ const AllBuyer = () => {
       ) : (
         <h1 className="text-3xl text-zinc-700 text-center my-5">All Buyer</h1>
       )}
-      <table className="table table-zebra w-full">
+      <table className=" table table-zebra w-full">
         <tbody>
           {buyers?.map((buyer, idx) => (
             <tr key={buyer._id}>

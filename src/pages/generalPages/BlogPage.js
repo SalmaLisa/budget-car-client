@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const BlogPage = () => {
   return (
     <div className="bg-gradient-to-tr from-yellow-100 via-zinc-100  to-yellow-100">
-      <div className="relative flex flex-col max-w-xl p-6 divide-y xl:flex-row xl:divide-y-0 xl:divide-x  divide-yellow-500 lg:ml-72 md:ml-24 pt-16">
+      <div className="relative md:flex flex-col max-w-xl p-6 divide-y xl:flex-row xl:divide-y-0 xl:divide-x  divide-yellow-500 lg:ml-72 md:ml-24 pt-16 hidden">
         <div className="p-3 space-y-1 xl:ml-6">
           <span className="relative inline-block">
             <svg
@@ -34,7 +34,8 @@ const BlogPage = () => {
       </div>
 
       {/* ============= question and answer part ===============*/}
-      <h1 className="text-3xl text-center font-bold mb-8 py-5 w-2/5 mx-auto border-l-4 border-r-4 border-yellow-500">You may want to know</h1>
+      <div className="pt-10 md:pt-0">
+      <h1 className="text-3xl text-center font-bold mb-8 py-5  md:w-2/5 md:mx-auto mx-5 border-l-4 border-r-4 border-yellow-500">You may want to know</h1>
       <div className="px-4 pb-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 ">
         <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12"></div>
         <div className="grid gap-8 row-gap-5 mb-8 md:row-gap-8 lg:grid-cols-2">
@@ -165,6 +166,7 @@ const BlogPage = () => {
           </div>
           
         </div>
+      </div>
       </div>
     </div>
   );

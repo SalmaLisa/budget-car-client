@@ -4,7 +4,7 @@ import { router } from "./Routes/Router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import TestPage from "./shared/TestPage";
+
 
 const stripe = loadStripe(process.env.REACT_APP_STRIPE_PK);
 function App() {
@@ -16,7 +16,7 @@ function App() {
           <RouterProvider router={router}></RouterProvider>
         </div>
       </QueryClientProvider>
-      {/* <TestPage></TestPage> */}
+      
     </Elements>
   );
 }

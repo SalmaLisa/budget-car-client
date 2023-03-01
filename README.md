@@ -15,7 +15,7 @@
 * If you open account as seller , you can add your product here and sell to the customers. You will get full       accessibility to manage your product. You can advertise any product and delete anyone as your wish.
 * there is an admin route . Admin can manage all the buyers and sellers and reported items.
 
-### Mainly Used Technology : reactJS, tailwind CSS
+### Mainly Used Technology : reactJS, tailwind CSS, Node js, Express js
 ### database : mongoDB
 ### hosting : firebase
 
